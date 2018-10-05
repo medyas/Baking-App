@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#76b39d</color>
+    <color name="colorPrimaryDark">#155e63</color>
+    <color name="colorAccent">#f9f8eb</color>
+    <color name="lightGray">#ECEFF1</color>
+    <color name="gray">#888b90</color>
+    <color name="white">#ffffff</color>
+    <color name="productGridBackgroundColor">#eae7e7</color>
+    <color name="recipe_title">#3b434d</color>
+</resources>

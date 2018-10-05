@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Baking App</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="recipe_url">https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="show_more">Show More</string>
+</resources>
