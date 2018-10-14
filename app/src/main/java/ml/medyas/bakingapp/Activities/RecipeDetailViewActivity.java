@@ -1,5 +1,6 @@
 package ml.medyas.bakingapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class RecipeDetailViewActivity extends AppCompatActivity implements Recip
     private RecipeClass recipe;
     private int position;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class RecipeDetailViewActivity extends AppCompatActivity implements Recip
             public void onSwipeTop() {
             }
             public void onSwipeRight() {
-                if(0<position--) {
+                if(0<position-1) {
                     position --;
                 }
                 else {
@@ -59,7 +61,7 @@ public class RecipeDetailViewActivity extends AppCompatActivity implements Recip
                 displayFragment(position);
             }
             public void onSwipeLeft() {
-                if(recipe.getSteps().size()<=position++) {
+                if(recipe.getSteps().size()<=position+1) {
                     position = 0;
                 }
                 else {

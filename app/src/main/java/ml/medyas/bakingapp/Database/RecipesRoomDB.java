@@ -14,7 +14,7 @@ public abstract class RecipesRoomDB extends RoomDatabase {
 
     private static volatile RecipesRoomDB INSTANCE;
 
-    static RecipesRoomDB getDatabase(final Context context) {
+    public static RecipesRoomDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (RecipesRoomDB.class) {
                 if (INSTANCE == null) {

@@ -28,6 +28,7 @@
             android:name=".Activities.RecipeDetailViewActivity"
             android:parentActivityName=".Activities.RecipeDetailActivity" />
         <activity android:name=".Activities.SettingsActivity" />
+
         <activity android:name=".Activities.AboutActivity" />
 
         <receiver android:name=".Widget.RecipesWidget">
@@ -35,10 +36,30 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="ACTION_UPDATE_SHOW_PREV"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="ACTION_UPDATE_SHOW_NEXT"/>
+            </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/recipes_widget_info" />
         </receiver>
+
+        <provider
+            android:name=".Database.RecipeContentProvider"
+            android:authorities="ml.medyas.baknigApp.RecipeContentProvider.provider"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".Widget.ListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" >
+
+        </service>
     </application>
 
 </manifest>

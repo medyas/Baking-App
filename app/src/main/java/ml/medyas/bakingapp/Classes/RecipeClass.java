@@ -8,8 +8,11 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-@Entity(tableName = "recipes")
+@Entity(tableName = RecipeClass.TABLE_NAME)
 public class RecipeClass implements Parcelable {
+    /** The name of the Cheese table. */
+    public static final String TABLE_NAME = "recipes";
+
     @PrimaryKey
     private int id;
     private int servings;

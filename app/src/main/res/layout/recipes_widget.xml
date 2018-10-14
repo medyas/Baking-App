@@ -1,21 +1,58 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="vertical"
     android:padding="@dimen/widget_margin">
 
-    <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:orientation="horizontal"
+        android:id="@+id/widget_layout"
+        android:background="@color/colorAccent"
+        android:elevation="4dp">
 
-</RelativeLayout>
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/widget_prev_recipe"
+            android:layout_weight="1"
+            android:background="@drawable/ic_navigate_before_black_24dp"
+            android:contentDescription="@string/previous_recipe_ingre" />
+
+        <TextView
+            android:id="@+id/widget_recipe_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Brownies Cake" />
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/widget_next_recipe"
+            android:layout_weight="1"
+            android:background="@drawable/ic_navigate_next_black_24dp"
+            android:contentDescription="@string/next_recipe_ingred" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="2dp"
+        android:dividerHeight="1dp"
+        android:divider="#eeeeee"
+        tools:listitem="@layout/widget_list_item_layout"
+        android:id="@+id/widget_ingred_list">
+
+    </ListView>
+
+</LinearLayout>

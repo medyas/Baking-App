@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.database.Cursor;
 
 import java.util.List;
 
@@ -16,6 +17,12 @@ public interface DaoClass {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<RecipeClass> recipes);
 
-    @Query("select * from recipes ORDER BY id ASC")
+    @Query("select * from "+ RecipeClass.TABLE_NAME+" ORDER BY id ASC")
     LiveData<List<RecipeClass>> getRecipes();
+
+    @Query("select * from "+ RecipeClass.TABLE_NAME+" ORDER BY id ASC")
+    List<RecipeClass> getRecipesList();
+
+    @Query("select * from "+ RecipeClass.TABLE_NAME+" ORDER BY id ASC")
+    Cursor getRecipesCursor();
 }

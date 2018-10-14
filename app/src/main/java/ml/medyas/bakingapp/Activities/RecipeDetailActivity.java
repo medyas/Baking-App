@@ -33,8 +33,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
         if (savedInstanceState != null) {
             recipe = savedInstanceState.getParcelable(RECIPE_ITEM);
+
         } else {
-            recipe =  AppSingleton.getSelectedRecipe();
+            recipe = AppSingleton.getSelectedRecipe();
         }
 
         if (findViewById(R.id.right_container) != null) {
