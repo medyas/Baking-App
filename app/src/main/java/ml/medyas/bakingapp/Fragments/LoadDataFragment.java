@@ -3,7 +3,6 @@ package ml.medyas.bakingapp.Fragments;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -94,14 +93,21 @@ public class LoadDataFragment extends Fragment {
             if(recipes != null) {
                 SharedPreferences.Editor sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).edit();
                 sharedPref.putBoolean(LOADED_DATA, true);
+                sharedPref.commit();
                 mRecipesViewModal.insertRecipes(recipes);
+                return recipes;
+            } else {
+                return null;
             }
-            return recipes;
         }
 
         @Override
         protected void onPostExecute(ArrayList<RecipeClass> r) {
-            mListener.loadFragment();
+            if(r == null) {
+                mListener.loadFragment(false);
+            } else {
+                mListener.loadFragment(true);
+            }
         }
     }
 
@@ -117,6 +123,6 @@ public class LoadDataFragment extends Fragment {
      */
     public interface onLoadDataFinished {
         // TODO: Update argument type and name
-        void loadFragment();
+        void loadFragment(boolean dataLoaded);
     }
 }

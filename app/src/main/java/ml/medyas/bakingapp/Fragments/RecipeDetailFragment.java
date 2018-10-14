@@ -3,15 +3,12 @@ package ml.medyas.bakingapp.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +33,11 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailAdapte
     @BindView(R.id.detail_review_text) TextView review;
     @BindView(R.id.ing_text) TextView ing_text;
     @BindView(R.id.detail_recycleView) RecyclerView mRecyclerView;
-    @BindView(R.id.show_ing) Button show_ings;
 
     private RecipeClass recipeClass;
     private View root;
     private RecipeDetailAdapter mAdapter;
-    private Boolean ingShown = false;
+    private int screenWidth = 0;
 
     int[] icons = {R.id.feedback_icon1, R.id.feedback_icon2, R.id.feedback_icon3, R.id.feedback_icon4, R.id.feedback_icon5};
     private String ingText;
@@ -62,11 +58,14 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailAdapte
         } else {
             recipeClass = savedInstanceState.getParcelable(RECIPE_ITEM);
         }
-        ingText = "<ol>";
+        ingText = "";
+        int i=1;
         for(IngredientsClass ing:recipeClass.getIngredients()) {
-            ingText+="<li> "+ing.getQuantity()+" "+ing.getMeasure()+(ing.getQuantity()>1?"'s":"")+" of "+ing.getIngredient()+"</li>";
+            ingText+="\n"+i+"- "+ing.getQuantity()+" "+ing.getMeasure()+(ing.getQuantity()>1?"'s":"")+" of "+ing.getIngredient()+"\n";
+            i++;
         }
-        ingText+="</ol>";
+
+        screenWidth = getScreenWidth();
     }
 
     @Override
@@ -85,35 +84,22 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailAdapte
         title.setText(recipeClass.getName());
         serving.setText(String.format("  %d Person's", recipeClass.getServings()));
         review.setText(String.format("%d of 5", 0));
-        ing_text.setText(Html.fromHtml(ingText));
+        ing_text.setText(ingText);
         if (!recipeClass.getImage().equals("")) {
             Picasso.get().load(recipeClass.getImage())
-                    .resize(getScreenWidth(), 600)
+                    .resize(screenWidth, 600)
                     .placeholder(getActivity().getApplicationContext().getResources().getDrawable(R.drawable.default_background))
                     .error(getActivity().getApplicationContext().getResources().getDrawable(R.drawable.default_background))
                     .into(img);
         } else {
             Picasso.get().load(R.drawable.default_background)
-                    .resize(getScreenWidth(), 600)
+                    .resize(screenWidth , 600)
                     .into(img);
         }
 
-        show_ings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ingShown) {
-                    ingShown = false;
-                    ing_text.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 150));
-                } else {
-                    ingShown = true;
-                    ing_text.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-                }
-            }
-        });
-
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        mAdapter = new RecipeDetailAdapter(recipeClass.getSteps(), this);
+        mAdapter = new RecipeDetailAdapter(recipeClass.getSteps(), this, getActivity().getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return root;

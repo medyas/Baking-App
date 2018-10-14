@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/programs/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_slow_motion_video_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/programs/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_navigate_before_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="dedede" />
-                            <entry key="outputName" value="ic_slow_motion_video_black_24dp" />
+                            <entry key="outputName" value="ic_navigate_before_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\Mohamed Yassine\Downloads\salver.svg" />
                           </map>
                         </option>

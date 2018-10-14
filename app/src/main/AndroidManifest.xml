@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ml.medyas.bakingapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="false"
@@ -14,25 +14,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppNoActionBarTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".Activities.RecipeActivity" >
-
+        <activity android:name=".Activities.RecipeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activities.RecipeDetailActivity"
-            android:parentActivityName=".Activities.RecipeActivity"/>
-
-        <activity android:name=".Activities.RecipeDetailViewActivity"
-            android:parentActivityName=".Activities.RecipeDetailActivity"/>
-
+        <activity
+            android:name=".Activities.RecipeDetailActivity"
+            android:parentActivityName=".Activities.RecipeActivity" />
+        <activity
+            android:name=".Activities.RecipeDetailViewActivity"
+            android:parentActivityName=".Activities.RecipeDetailActivity" />
         <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.AboutActivity" />
 
-        <activity android:name=".Activities.AboutActivity"></activity>
+        <receiver android:name=".Widget.RecipesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipes_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

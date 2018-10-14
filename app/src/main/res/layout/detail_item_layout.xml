@@ -5,15 +5,32 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:id="@+id/detail_layout"
+    android:background="@color/white"
     android:elevation="4dp">
 
-    <ImageView
+    <View
         android:id="@+id/step_thumb"
         android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:background="@color/gray"
         android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/step_desc"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/step_thumb_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/gray"
+        android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/step_thumb"
+        app:layout_constraintEnd_toEndOf="@+id/step_thumb"
+        app:layout_constraintStart_toStartOf="@+id/step_thumb"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_slow_motion_video_black_24dp" />
 
@@ -29,7 +46,7 @@
         android:fontFamily="sans-serif"
         android:text="recipe intro"
         android:textColor="@color/recipe_title"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/step_thumb"
@@ -42,9 +59,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:text="prep cookie"
         android:textColor="@color/gray"
+        android:maxLines="1"
         android:textSize="16sp"
+        android:fontFamily="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/step_title"
         app:layout_constraintTop_toBottomOf="@+id/step_title" />

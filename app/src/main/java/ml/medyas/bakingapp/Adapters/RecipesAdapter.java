@@ -1,7 +1,6 @@
 package ml.medyas.bakingapp.Adapters;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         mRecipes = recipes;
         this.ctx = ctx;
         this.width = width;
-        mListener = (itemOnclickListener) listener;
+        mListener = listener;
     }
 
     @NonNull
@@ -47,7 +46,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int i) {
         holder.title.setText(mRecipes.get(i).getName());
         holder.serving.setText(String.format("  %d Persons", mRecipes.get(i).getServings()));
-        if(ctx.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if(ctx.getResources().getString(R.string.inTablet).equals("true")) {
             if (!mRecipes.get(i).getImage().equals("")) {
                 Picasso.get().load(mRecipes.get(i).getImage())
                         .resize(250, 250)
@@ -82,7 +81,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     }
 
     public interface itemOnclickListener {
-        public void onClickListener(int position);
+        void onClickListener(int position);
     }
 
     @Override

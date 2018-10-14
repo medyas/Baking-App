@@ -3,9 +3,6 @@ package ml.medyas.bakingapp.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,14 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ml.medyas.bakingapp.Activities.RecipeDetailActivity;
 import ml.medyas.bakingapp.Adapters.RecipesAdapter;
 import ml.medyas.bakingapp.Classes.RecipeClass;
 import ml.medyas.bakingapp.R;
@@ -62,7 +57,7 @@ public class RecipeFragment extends Fragment implements RecipesAdapter.itemOncli
         ButterKnife.bind(this, rootView);
 
         mRecyclerView.setHasFixedSize(true);
-        if(getActivity().getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if(getActivity().getApplicationContext().getResources().getString(R.string.inTablet).equals("true")) {
             mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), calculateNoOfColumns(getActivity().getApplicationContext())));
         } else {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

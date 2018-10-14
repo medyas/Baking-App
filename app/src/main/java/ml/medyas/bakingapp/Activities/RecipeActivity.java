@@ -2,41 +2,26 @@ package ml.medyas.bakingapp.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.button.MaterialButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.github.kittinunf.fuel.Fuel;
-import com.github.kittinunf.fuel.core.FuelError;
-import com.github.kittinunf.fuel.core.Request;
-import com.github.kittinunf.fuel.core.Response;
-import com.github.kittinunf.result.Result;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import kotlin.Triple;
+import ml.medyas.bakingapp.AppSingleton;
 import ml.medyas.bakingapp.Classes.NavigationIconClickListener;
 import ml.medyas.bakingapp.Classes.RecipeClass;
 import ml.medyas.bakingapp.Fragments.LoadDataFragment;
 import ml.medyas.bakingapp.Fragments.RecipeFragment;
 import ml.medyas.bakingapp.R;
 
-import static ml.medyas.bakingapp.Activities.RecipeDetailActivity.RECIPE_ITEM;
 import static ml.medyas.bakingapp.Classes.UtilsClass.getNavigationIconView;
 import static ml.medyas.bakingapp.Fragments.LoadDataFragment.LOADED_DATA;
 
@@ -44,6 +29,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     NavigationIconClickListener nav;
+
+    // singleton
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +49,14 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (savedInstanceState == null) {
             if (!sharedPref.getBoolean(LOADED_DATA, false)) {
+                Log.d(getClass().getName(), "Loading load fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, new LoadDataFragment())
                         .commit();
             }
             else {
+                Log.d(getClass().getName(), "Loading Recipe fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, new RecipeFragment())
@@ -75,6 +64,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
             }
         }
         else {
+            Log.d(getClass().getName(), "Loading Recipe fragment directly");
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, new RecipeFragment())
@@ -103,17 +93,37 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
 
 
     @Override
-    public void loadFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new RecipeFragment())
-                .commit();
+    public void onFragmentInteraction(RecipeClass recipes) {
+        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        AppSingleton.setSelectedRecipe(recipes);
+        startActivity(intent);
     }
 
     @Override
-    public void onFragmentInteraction(RecipeClass recipes) {
-        Intent intent = new Intent(this, RecipeDetailActivity.class);
-        intent.putExtra(RECIPE_ITEM, recipes);
-        startActivity(intent);
+    public void loadFragment(boolean dataLoaded) {
+        Log.d(getClass().getName(), "finished data load !");
+        if(dataLoaded) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, new RecipeFragment())
+                    .commit();
+        } else {
+            Log.d(getClass().getName(), "Failed to load data !");
+            /*getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, null)
+                    .commit();
+            */
+            Snackbar.make(findViewById(R.id.toolbar), "Could not Load Data", Snackbar.LENGTH_INDEFINITE)
+            .setAction("Retry", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container, new LoadDataFragment())
+                            .commit();
+                }
+            });
+        }
     }
 }

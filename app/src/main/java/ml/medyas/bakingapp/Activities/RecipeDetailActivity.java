@@ -1,14 +1,17 @@
 package ml.medyas.bakingapp.Activities;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ml.medyas.bakingapp.AppSingleton;
 import ml.medyas.bakingapp.Classes.RecipeClass;
 import ml.medyas.bakingapp.Fragments.RecipeDetailFragment;
 import ml.medyas.bakingapp.Fragments.RecipeDetailViewFragment;
@@ -31,7 +34,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         if (savedInstanceState != null) {
             recipe = savedInstanceState.getParcelable(RECIPE_ITEM);
         } else {
-            recipe = getIntent().getExtras().getParcelable(RECIPE_ITEM);
+            recipe =  AppSingleton.getSelectedRecipe();
         }
 
         if (findViewById(R.id.right_container) != null) {
@@ -65,6 +68,20 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     @Override
     public void onDetailItemClicked(int position) {
         if (masterDetail) {
+            NestedScrollView leftLayout = findViewById(R.id.left_layout);
+            leftLayout.setLayoutParams( new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    1.0f
+            ));
+
+            NestedScrollView rightLayout  = findViewById(R.id.right_layout);
+            rightLayout.setLayoutParams( new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    1.0f
+            ));
+
             Fragment frag = new RecipeDetailViewFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable(STEPS_ITEM, recipe.getSteps().get(position));
