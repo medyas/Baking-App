@@ -10,13 +10,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
@@ -32,6 +31,7 @@ import com.google.android.exoplayer2.util.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ml.medyas.bakingapp.Classes.StepsClass;
 import ml.medyas.bakingapp.R;
 
@@ -43,8 +43,8 @@ public class RecipeDetailViewFragment extends Fragment {
     public static final String PLAY_WHEN_READY = "play_when_ready";
     public static final String PLAYBACK_POSITION = "playback_position";
     @BindView(R.id.video_view) PlayerView playerView;
-    @BindView(R.id.step_title) TextView title;
-    @BindView(R.id.step_desc) TextView desc;
+    @BindView(R.id.view_step_title) TextView title;
+    @BindView(R.id.view_step_desc) TextView desc;
 
     private SimpleExoPlayer player;
     private long playbackPosition = 0;
@@ -101,6 +101,16 @@ public class RecipeDetailViewFragment extends Fragment {
         return root;
     }
 
+    @OnClick({R.id.view_swipe_left, R.id.view_swipe_right})
+    public void swipeFragments(ImageView img) {
+        int id = img.getId();
+        if(id == R.id.view_swipe_left) {
+            mListener.onShowPrevious();
+        } else if(id == R.id.view_swipe_right) {
+            mListener.onShowNext();
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -112,7 +122,7 @@ public class RecipeDetailViewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUi();
+        //hideSystemUi();
         if ((player == null)) {
             initializePlayer();
         }
@@ -148,9 +158,6 @@ public class RecipeDetailViewFragment extends Fragment {
         // Produces DataSource instances through which media data is loaded.
         DataSource.Factory dataSourceFactory =
                 new DefaultDataSourceFactory(getActivity().getApplicationContext(), Util.getUserAgent(getActivity().getApplicationContext(), "BackingApp"));
-
-        // Produces Extractor instances for parsing the media data.
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
         // This is the MediaSource representing the media to be played.
         if(!step.getVideoURL().equals("")) {
@@ -212,7 +219,7 @@ public class RecipeDetailViewFragment extends Fragment {
      */
     public interface OnSlideListener {
         // TODO: Update argument type and name
-        void onShowNext(int position);
-        void onShowPrevious(int position);
+        void onShowNext();
+        void onShowPrevious();
     }
 }

@@ -22,6 +22,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     public static final String STEPS_ITEM = "steps_item";
     @BindView(R.id.toolbar) Toolbar toolbar;
 
+    private int position;
     private boolean masterDetail = false;
     private RecipeClass recipe;
 
@@ -67,8 +68,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
 
     @Override
-    public void onDetailItemClicked(int position) {
+    public void onDetailItemClicked(int p) {
         if (masterDetail) {
+            position = p;
             NestedScrollView leftLayout = findViewById(R.id.left_layout);
             leftLayout.setLayoutParams( new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -83,31 +85,56 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
                     1.0f
             ));
 
-            Fragment frag = new RecipeDetailViewFragment();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(STEPS_ITEM, recipe.getSteps().get(position));
-            frag.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.right_container, frag)
-                    .commit();
+            displayFragment(p);
+
         } else {
 
             Intent intent = new Intent(this, RecipeDetailViewActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable(STEPS_ITEM, recipe);
-            bundle.putInt("item_position", position);
+            bundle.putInt("item_position", p);
             intent.putExtras(bundle);
             startActivity(intent);
         }
     }
 
     @Override
-    public void onShowNext(int position) {
-
+    public void onShowNext() {
+        swipeRight();
     }
 
     @Override
-    public void onShowPrevious(int position) {
+    public void onShowPrevious() {
+        swipeLeft();
+    }
 
+    private void swipeRight() {
+        if(recipe.getSteps().size()<=position+1) {
+            position = 0;
+        }
+        else {
+            position ++;
+        }
+        displayFragment(position);
+    }
+
+    private void swipeLeft() {
+        if(0<position-1) {
+            position --;
+        }
+        else {
+            position = recipe.getSteps().size()-1;
+        }
+        displayFragment(position);
+    }
+
+    private void displayFragment(int pos) {
+        Fragment frag = new RecipeDetailViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(STEPS_ITEM, recipe.getSteps().get(pos));
+        frag.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.recipe_detail_view_container, frag)
+                .commit();
     }
 }

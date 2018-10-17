@@ -46,6 +46,9 @@ public class ListWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
+            if(mIngred == null) {
+                return 0;
+            }
             return mIngred.length;
         }
 

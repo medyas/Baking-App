@@ -52,26 +52,34 @@ public class RecipeDetailViewActivity extends AppCompatActivity implements Recip
             public void onSwipeTop() {
             }
             public void onSwipeRight() {
-                if(0<position-1) {
-                    position --;
-                }
-                else {
-                    position = recipe.getSteps().size();
-                }
-                displayFragment(position);
+                swipeRight();
             }
             public void onSwipeLeft() {
-                if(recipe.getSteps().size()<=position+1) {
-                    position = 0;
-                }
-                else {
-                    position ++;
-                }
-                displayFragment(position);
+                swipeLeft();
             }
             public void onSwipeBottom() {
             }
         });
+    }
+
+    private void swipeRight() {
+        if(recipe.getSteps().size()<=position+1) {
+            position = 0;
+        }
+        else {
+            position ++;
+        }
+        displayFragment(position);
+    }
+
+    private void swipeLeft() {
+        if(0<position-1) {
+            position --;
+        }
+        else {
+            position = recipe.getSteps().size()-1;
+        }
+        displayFragment(position);
     }
 
     private void displayFragment(int pos) {
@@ -92,12 +100,12 @@ public class RecipeDetailViewActivity extends AppCompatActivity implements Recip
     }
 
     @Override
-    public void onShowNext(int position) {
-
+    public void onShowNext() {
+        swipeRight();
     }
 
     @Override
-    public void onShowPrevious(int position) {
-
+    public void onShowPrevious() {
+        swipeLeft();
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import ml.medyas.bakingapp.Classes.RecipeClass;
 import ml.medyas.bakingapp.Fragments.LoadDataFragment;
 import ml.medyas.bakingapp.Fragments.RecipeFragment;
 import ml.medyas.bakingapp.R;
+import ml.medyas.bakingapp.SimpleIdlingResource;
 
 import static ml.medyas.bakingapp.Classes.UtilsClass.getNavigationIconView;
 import static ml.medyas.bakingapp.Fragments.LoadDataFragment.LOADED_DATA;
@@ -29,6 +31,15 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     NavigationIconClickListener nav;
+
+    @Nullable
+    private SimpleIdlingResource mIdlingResource  = null;
+    public SimpleIdlingResource getIdlingResource() {
+        if(mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     // singleton
 
@@ -47,6 +58,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
         toolbar.setNavigationOnClickListener(nav);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(false);
+        }
         if (savedInstanceState == null) {
             if (!sharedPref.getBoolean(LOADED_DATA, false)) {
                 Log.d(getClass().getName(), "Loading load fragment");
@@ -61,6 +75,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                         .beginTransaction()
                         .replace(R.id.container, new RecipeFragment())
                         .commit();
+                if (mIdlingResource != null) {
+                    mIdlingResource.setIdleState(true);
+                }
             }
         }
         else {
@@ -69,6 +86,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                     .beginTransaction()
                     .replace(R.id.container, new RecipeFragment())
                     .commit();
+            if (mIdlingResource != null) {
+                mIdlingResource.setIdleState(true);
+            }
         }
 
     }

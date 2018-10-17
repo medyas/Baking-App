@@ -25,17 +25,17 @@
         app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
 
     <TextView
+        android:id="@+id/detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/detail_title"
+        android:layout_margin="8dp"
         android:fontFamily="sans-serif"
         android:textColor="@color/recipe_title"
-        android:layout_margin="8dp"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_img"
-        tools:text="Nutella Pie"/>
+        tools:text="Nutella Pie" />
 
     <TextView
         android:id="@+id/detail_serving"
