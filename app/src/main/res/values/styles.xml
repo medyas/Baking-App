@@ -60,6 +60,9 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
+        <item name="titleTextColor">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>
