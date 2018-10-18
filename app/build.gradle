@@ -59,6 +59,11 @@ dependencies {
 
     // Exoplayer Audio Video player
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
+    // Base implementation with a standard SeekBar
+    implementation 'com.github.rubensousa:previewseekbar:2.0.0'
+
+    // ExoPlayer extension that contains a TimeBar.
+    implementation 'com.github.rubensousa:previewseekbar-exoplayer:2.8.1.0'
 
     // Picasso image manipulation Library
     implementation 'com.squareup.picasso:picasso:2.71828'
