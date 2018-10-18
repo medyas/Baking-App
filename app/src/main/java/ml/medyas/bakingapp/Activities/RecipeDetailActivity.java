@@ -134,7 +134,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         bundle.putParcelable(STEPS_ITEM, recipe.getSteps().get(pos));
         frag.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_view_container, frag)
+                .replace(R.id.right_container, frag)
                 .commit();
     }
 }

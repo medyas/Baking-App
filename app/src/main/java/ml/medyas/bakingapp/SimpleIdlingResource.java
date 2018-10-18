@@ -5,6 +5,16 @@ import android.support.test.espresso.IdlingResource;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+
+/**
+ * A very simple implementation of {@link IdlingResource}.
+ * <p>
+ * Consider using CountingIdlingResource from espresso-contrib package if you use this class from
+ * multiple threads or need to keep a count of pending operations.
+ *
+ * from com.example.android.teatime app
+ */
 public class SimpleIdlingResource implements IdlingResource {
 
     @Nullable

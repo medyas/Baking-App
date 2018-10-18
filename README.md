@@ -27,3 +27,33 @@ The recipe listing is located here: http://go.udacity.com/android-baking-app-jso
 The JSON file contains the recipes' instructions, ingredients, videos and images you will need to complete this project. Don’t assume that all steps of the recipe have a video. Some may have a video, an image, or no visual media at all.
 
 One of the skills you will demonstrate in this project is how to handle unexpected input in your data -- professional developers often cannot expect polished JSON data when building an app.
+
+## Screenshots
+
+### Phone View
+
+**Main Activity Listing all the recipes**  
+![Main Activity screenshot showing a list of the recipes from the api](screenshots/Screenshot_phone_1.png)  
+
+**Main Activity showing the menu**  
+![Main Activity screenshot showing the app menu ](screenshots/Screenshot_phone_2.png) 
+
+**Recipe Detail Activity displaying the recipe details**  
+![Recipe Detail Activity displaying the recipe details, including the ingrediants and steps for preparing the recipe](screenshots/Screenshot_phone_3.png) 
+
+**Recipe step detail Activity**  
+![Recipe step detail Activity, displaying the step video and description](screenshots/Screenshot_phone_4.png) 
+
+### Tablet View
+
+**Main Activity displaying a grid list of the recipes**  
+![Main Activity displaying a grid list of the recipes](screenshots/Screenshot_tab_1.png)  
+
+**Recipe Detail Activity displaying the recipe details**  
+![Recipe Detail Activity displaying the recipe details, including the ingrediants and steps for preparing the recipe](screenshots/Screenshot_tab_2.png) 
+
+**MasterDetail View: Recipe Detail and steps, displaying the video and step description**  
+![Recipe Detail Activity displaying the recipe details, including the ingrediants and steps for preparing the recipe, displaying the step video and description](screenshots/Screenshot_tab_3.png) 
+
+**MasterDetail View: Recipe Detail and steps, displaying the video and step description**  
+![Recipe Detail Activity displaying the recipe details, including the ingrediants and steps for preparing the recipe, displaying the step video and description](screenshots/Screenshot_tab_4.png) 
