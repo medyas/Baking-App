@@ -57,3 +57,7 @@ One of the skills you will demonstrate in this project is how to handle unexpect
 
 **MasterDetail View: Recipe Detail and steps, displaying the video and step description**  
 ![Recipe Detail Activity displaying the recipe details, including the ingrediants and steps for preparing the recipe, displaying the step video and description](screenshots/Screenshot_tab_4.png) 
+
+
+**App home Screen Widget displaying recipe name with a list of ingredients**  
+![App home Screen Widget displaying recipe name with a list of ingredients with the ability to switch from one to another](screenshots/Screenshot_widget.png)  
